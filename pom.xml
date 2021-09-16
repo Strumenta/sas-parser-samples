@@ -5,7 +5,7 @@
     <groupId>com.strumenta</groupId>
     <artifactId>sas-parser-samples</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
     <name>sas-parser-samples</name>
     <description>
         A collection of examples for Strumenta's SAS parser.
