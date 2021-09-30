@@ -4,7 +4,7 @@ This is a collection of examples of usage of Strumenta's parser for the SAS lang
 
 ## Parser Bench
 
-On our [Parser Bench](https://parserbench.strumenta.com) you can see some code samples and their translation into an AST,
+On our [Parser Bench](https://parserbench.strumenta.com/app/sas) you can see some code samples and their translation into an AST,
 an Abstract Syntax Tree that applications can analyze to extract information about a SAS program.
 
 ## Example Usage (Java)
