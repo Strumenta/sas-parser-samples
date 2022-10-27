@@ -1,5 +1,6 @@
 package com.strumenta.sas.samples;
 
+import com.strumenta.kolasu.javalib.Traversing;
 import com.strumenta.kolasu.model.Node;
 import com.strumenta.kolasu.model.Processing;
 import com.strumenta.kolasu.parsing.ParsingResult;
@@ -8,7 +9,6 @@ import com.strumenta.sas.ast.SourceFile;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Covid19NYT {
 
-    public static final String INDENTATION = "    ";
+    public static final String INDENTATION = "  ";
 
     public static void main(String[] args) throws IOException {
         String url = args.length > 0 ?
@@ -24,13 +24,13 @@ public class Covid19NYT {
                 "https://raw.githubusercontent.com/sassoftware/covid-19-sas/master/Data/import-data-nyt.sas";
         try(InputStream inputStream = new URL(url).openStream()) {
             //We could parse directly from the input stream, without storing the code into a string, however we later
-            //extract some text the code string for demonstration purposes. The parser keeps the entire text in memory
-            //anyway, as long as there are live references to the parse tree.
+            //extract some text from the code string for demonstration purposes.
+            //The parser keeps the entire text in memory anyway, as long as there are live references to the parse tree.
             String code = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
             SASLanguage sas = new SASLanguage();
+            sas.optimizeForSpeed(); // Or sas.optimizeForMemory();
             System.out.print("Parsing " + url + "...");
-            ParsingResult<SourceFile> result = sas.parse(
-                    new ByteArrayInputStream(code.getBytes(StandardCharsets.UTF_8)), true);
+            ParsingResult<SourceFile> result = sas.parse(code, true, true);
 
             if(result.getCorrect()) {
                System.out.println(" no issues found.");
@@ -46,18 +46,21 @@ public class Covid19NYT {
                         System.err.println("WARNING: " + i.getMessage() + (i.getPosition() != null ? " @ " + i.getPosition() : ""));
                         break;
                     case ERROR:
-                        System.out.println("ERROR: " + i.getMessage() + (i.getPosition() != null ? " @ " + i.getPosition() : ""));
+                        System.err.println("ERROR: " + i.getMessage() + (i.getPosition() != null ? " @ " + i.getPosition() : ""));
                         break;
                 }
             });
 
             System.out.println();
 
-            sas.walk(result.getRoot()).iterator().forEachRemaining(node -> {
+            Traversing.walk(result.getRoot()).forEach(node -> {
                 for(Node parent = node.getParent(); parent != null; parent = parent.getParent()) {
                     System.out.print(INDENTATION);
                 }
-                System.out.println("Traversing node " + node.getClass().getName() + " @ " + node.getPosition() + " with text \"" + StringUtils.abbreviate(node.getPosition().text(code), 30) + "\"");
+                System.out.println(
+                        node.getClass().getName().substring("com.strumenta.sas.ast.".length()) +
+                        " @ " + node.getPosition() +
+                        " with text \"" + StringUtils.abbreviate(node.getPosition().text(code), 30) + "\"");
                 Processing.processProperties(
                         node,
                         p -> {

@@ -5,7 +5,7 @@
     <groupId>com.strumenta</groupId>
     <artifactId>sas-parser-samples</artifactId>
     <packaging>jar</packaging>
-    <version>1.2.1</version>
+    <version>1.4.6</version>
     <name>sas-parser-samples</name>
     <description>
         A collection of examples for Strumenta's SAS parser.
@@ -17,6 +17,11 @@
             <groupId>com.strumenta</groupId>
             <artifactId>sas-parser</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.strumenta.kolasu</groupId>
+            <artifactId>kolasu-javalib</artifactId>
+            <version>1.4.6</version>
         </dependency>
     </dependencies>
     <build>
