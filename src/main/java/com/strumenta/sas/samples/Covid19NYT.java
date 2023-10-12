@@ -28,7 +28,6 @@ public class Covid19NYT {
             //The parser keeps the entire text in memory anyway, as long as there are live references to the parse tree.
             String code = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
             SASLanguage sas = new SASLanguage();
-            sas.optimizeForSpeed(); // Or sas.optimizeForMemory();
             System.out.print("Parsing " + url + "...");
             ParsingResult<SourceFile> result = sas.parse(code, true, true);
 
