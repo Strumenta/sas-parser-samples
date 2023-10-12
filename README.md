@@ -4,7 +4,7 @@ This is a collection of examples of usage of Strumenta's parser for the SAS lang
 
 Note that the SAS parser is a commercial product and it's required to build and run these examples.
 
-## Parser Bench
+## Strumenta Playground
 
 On the [Strumenta Playground](https://playground.strumenta.com/sas) you can see some code samples and their translation into an AST,
 an Abstract Syntax Tree that applications can analyze to extract information about a SAS program.
