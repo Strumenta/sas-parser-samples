@@ -4,6 +4,8 @@ This is a collection of examples of usage of Strumenta's parser for the SAS lang
 
 Note that the SAS parser is a commercial product and it's required to build and run these examples.
 
+You can find a tutorial on [how to use the SAS Parser on Strumenta's website](https://tomassetti.me/how-to-use-the-sas-parser/).
+
 ## Strumenta Playground
 
 On the [Strumenta Playground](https://playground.strumenta.com/sas) you can see some code samples and their translation into an AST,
